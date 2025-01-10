@@ -2199,7 +2199,7 @@ for (i in list) {
 ########################################
 ###### Correlation: Figure 4 ###########
 ########################################
-#DATA: use files after running lines 1179-1342 for Fig3
+#DATA: use files after running lines 1192-1354 for Fig3
 #AT CITY-LEVEL
 combined <- list(pm, no2, o3, co2) %>% reduce(full_join, by=c('ID', "year"))
 combined <- combined[c("ID", "year", "pwpm", "pwno2", "pwo3", "co2_per_cap", "country.x", "GBDSuperRegion.x")]
@@ -2428,7 +2428,7 @@ cor_table <- rbind(cor_0, cor_1, cor_2, cor_3, cor_4, cor_5, cor_6, cor_7)
 cor_table$pos <- cor_table$sig_pos + cor_table$insig_pos
 cor_table$neg <- cor_table$sig_neg + cor_table$insig_neg
 
-#total number of samples in the begining
+#total number of samples in the beginning
 length(unique(x$ID))
 for (i in 1:7) {
   test <- subset(x, x$gbd_i==i)
@@ -2472,6 +2472,13 @@ for (i in c(0:7)) { #i: gbd
 ################################################################################
 ###### Correlation_subgroup analysis: Extended Data Figure 4 ###################
 ################################################################################
+#merge
+combined <- list(pm, no2, o3, co2) %>% reduce(full_join, by=c('ID', "year"))
+combined <- combined[c("ID", "year", "pwpm", "pwno2", "pwo3", "co2_per_cap", "country.x", "GBDSuperRegion.x", "pop")]
+combined <- rename(combined, country="country.x")
+combined <- rename(combined, GBDSuperRegion="GBDSuperRegion.x")
+combined <- na.omit(combined)
+
 #categorization by population size
 pop_cat <- combined[c("ID", "year", "pop")]
 pop_cat <- subset(pop_cat, pop_cat$year==2019)
@@ -2761,7 +2768,7 @@ for (i in c(0:7)) { #i: gbd
       theme_void() +
       labs(title = NULL) +
       scale_y_reverse()
-    ggsave(paste0("/Users/k_sy_n_imac/Library/CloudStorage/Dropbox/GWU/Lab/13000cities/Pollution_emissions/Study/Nature_cities/Revision_communications_E&E/Figures/Figure4/small_cor_", i, "_", j, ".pdf"), plot = p, width = 49, height = 49, units = "in")
+    ggsave(paste0("/Users/k_sy_n_imac/Library/CloudStorage/Dropbox/GWU/Lab/13000cities/Pollution_emissions/Study/Nature_cities/Figures/Extended_Data_Fig.4/small_cor_", i, "_", j, ".pdf"), plot = p, width = 49, height = 49, units = "in")
     dev.off() 
     
   }}
@@ -3044,7 +3051,7 @@ for (i in c(0:7)) { #i: gbd
       theme_void() +
       labs(title = NULL) +
       scale_y_reverse()
-    ggsave(paste0("/Users/k_sy_n_imac/Library/CloudStorage/Dropbox/GWU/Lab/13000cities/Pollution_emissions/Study/Nature_cities/Revision_communications_E&E/Figures/Figure4/large_cor_", i, "_", j, ".pdf"), plot = p, width = 49, height = 49, units = "in")
+    ggsave(paste0("/Users/k_sy_n_imac/Library/CloudStorage/Dropbox/GWU/Lab/13000cities/Pollution_emissions/Study/Nature_cities/Figures/Extended_Data_Fig.4/large_cor_", i, "_", j, ".pdf"), plot = p, width = 49, height = 49, units = "in")
     dev.off() 
     
   }}
